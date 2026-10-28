@@ -1,0 +1,2 @@
+blackout_3s: ['DEGRADED', 'HOLD', 'NORMAL', 'RECOVERING']
+blackout_gentle: ['DEGRADED', 'HOLD', 'NORMAL', 'RECOVERING']

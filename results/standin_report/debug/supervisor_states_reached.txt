@@ -1,0 +1,4 @@
+blackout_gentle: ['DEGRADED', 'HOLD', 'NORMAL', 'RECOVERING']
+burst_loss: ['DEGRADED', 'HOLD', 'NORMAL', 'RECOVERING']
+nominal_gentle: ['DEGRADED', 'NORMAL']
+random_loss_30: ['DEGRADED', 'NORMAL']

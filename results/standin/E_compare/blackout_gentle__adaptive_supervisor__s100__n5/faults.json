@@ -1,0 +1,35 @@
+{
+  "profile": {
+    "name": "blackout_gentle",
+    "description": "3 s blackout at t=5 s, low-curvature leader path (feasibility control)",
+    "events": [
+      {
+        "kind": "blackout",
+        "label": "blackout",
+        "start": 5.0,
+        "end": 8.0
+      }
+    ]
+  },
+  "edges": [
+    {
+      "t": 5.0,
+      "event": "blackout",
+      "kind": "blackout",
+      "action": "start",
+      "profile": "blackout_gentle"
+    },
+    {
+      "t": 8.0,
+      "event": "blackout",
+      "kind": "blackout",
+      "action": "end",
+      "profile": "blackout_gentle"
+    }
+  ],
+  "counts": {
+    "dropped_by_fault": 0,
+    "delayed_by_fault": 0,
+    "extra_latency_sum": 0.0
+  }
+}

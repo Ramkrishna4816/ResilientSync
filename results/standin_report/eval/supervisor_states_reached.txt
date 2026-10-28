@@ -1,0 +1,6 @@
+blackout_3s: ['DEGRADED', 'HOLD', 'NORMAL', 'RECOVERING']
+blackout_gentle: ['DEGRADED', 'HOLD', 'NORMAL', 'RECOVERING']
+burst_loss: ['DEGRADED', 'HOLD', 'NORMAL', 'RECOVERING']
+latency_jitter: ['DEGRADED', 'NORMAL']
+nominal_gentle: ['DEGRADED', 'NORMAL']
+random_loss_30: ['DEGRADED', 'NORMAL']

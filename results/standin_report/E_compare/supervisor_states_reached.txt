@@ -1,0 +1,1 @@
+blackout_gentle: ['DEGRADED', 'HOLD', 'NORMAL', 'RECOVERING']

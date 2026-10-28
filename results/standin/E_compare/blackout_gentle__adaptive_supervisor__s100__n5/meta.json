@@ -1,0 +1,28 @@
+{
+  "spec": {
+    "scenario": "blackout_gentle",
+    "arm": "adaptive_supervisor",
+    "seed": 100,
+    "duration_s": 18.0,
+    "n_agents": 5,
+    "plant": "standin",
+    "tag": ""
+  },
+  "status": "completed",
+  "error": null,
+  "steps_run": 360,
+  "max_time_skew_s": 3.8902214782865485e-13,
+  "wall_s": 0.86,
+  "supervisor_active": true,
+  "scenario_window": [
+    5.0,
+    8.0
+  ],
+  "collision_distance_m": 0.38,
+  "dt": 0.05,
+  "frame": [
+    0.0,
+    0.0,
+    0.0
+  ]
+}

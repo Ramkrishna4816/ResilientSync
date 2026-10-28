@@ -1,0 +1,82 @@
+[
+  {
+    "t": 3.8,
+    "from": "NORMAL",
+    "to": "DEGRADED",
+    "reason": "Entered DEGRADED because communication quality 0.31 fell below the configured threshold 0.35.",
+    "quality": 0.308,
+    "age": 0.5,
+    "kind": "transition",
+    "follower": 4
+  },
+  {
+    "t": 4.65,
+    "from": "NORMAL",
+    "to": "DEGRADED",
+    "reason": "Entered DEGRADED because communication quality 0.33 fell below the configured threshold 0.35.",
+    "quality": 0.332,
+    "age": 0.15,
+    "kind": "transition",
+    "follower": 1
+  },
+  {
+    "t": 6.6,
+    "from": "NORMAL",
+    "to": "DEGRADED",
+    "reason": "Entered DEGRADED because communication quality 0.29 fell below the configured threshold 0.35.",
+    "quality": 0.291,
+    "age": 0.35,
+    "kind": "transition",
+    "follower": 3
+  },
+  {
+    "t": 10.0,
+    "from": "NORMAL",
+    "to": "DEGRADED",
+    "reason": "Entered DEGRADED because communication quality 0.30 fell below the configured threshold 0.35.",
+    "quality": 0.302,
+    "age": 0.55,
+    "kind": "transition",
+    "follower": 2
+  },
+  {
+    "t": 10.05,
+    "from": "DEGRADED",
+    "to": "NORMAL",
+    "reason": "Returned to NORMAL because communication quality 0.55 stayed at or above 0.50 for the required dwell time.",
+    "quality": 0.552,
+    "age": 0.1,
+    "kind": "transition",
+    "follower": 3
+  },
+  {
+    "t": 14.3,
+    "from": "DEGRADED",
+    "to": "NORMAL",
+    "reason": "Returned to NORMAL because communication quality 0.58 stayed at or above 0.50 for the required dwell time.",
+    "quality": 0.584,
+    "age": 0.2,
+    "kind": "transition",
+    "follower": 2
+  },
+  {
+    "t": 14.6,
+    "from": "DEGRADED",
+    "to": "NORMAL",
+    "reason": "Returned to NORMAL because communication quality 0.62 stayed at or above 0.50 for the required dwell time.",
+    "quality": 0.623,
+    "age": 0.2,
+    "kind": "transition",
+    "follower": 4
+  },
+  {
+    "t": 15.7,
+    "from": "DEGRADED",
+    "to": "NORMAL",
+    "reason": "Returned to NORMAL because communication quality 0.57 stayed at or above 0.50 for the required dwell time.",
+    "quality": 0.574,
+    "age": 0.1,
+    "kind": "transition",
+    "follower": 1
+  }
+]

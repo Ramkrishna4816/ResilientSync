@@ -1,0 +1,2 @@
+scenario,arm,runs,completed,RMSE_mean,RMSE_sd,Peak_mean,MinSep_min,collision_runs,saturated_samples,pose_loss_pct,max_age_s,recovered,recovery_applicable,recovery_time_mean
+nominal,adaptive_supervisor,1,1,0.1367021229352401,,0.1920613401801204,1.5246780896060763,0,0,1.875,0.2500000000000001,0,0,

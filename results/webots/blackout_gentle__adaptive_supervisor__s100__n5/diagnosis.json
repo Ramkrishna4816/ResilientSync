@@ -1,0 +1,168 @@
+{
+  "run_dir": "C:\\Users\\harih\\Downloads\\ResilientSync-stage7-webots\\ResilientSync\\results\\webots\\blackout_gentle__adaptive_supervisor__s100__n5",
+  "verdict": "WARN",
+  "checks": [
+    {
+      "level": "INFO",
+      "id": "plant",
+      "msg": "plant=webots  scenario=blackout_gentle  arm=adaptive_supervisor  seed=100  robots=5",
+      "value": null
+    },
+    {
+      "level": "INFO",
+      "id": "webots_version",
+      "msg": "Webots Webots version: R2025a, basicTimeStep 10 ms",
+      "value": null
+    },
+    {
+      "level": "PASS",
+      "id": "status",
+      "msg": "run status = completed ",
+      "value": null
+    },
+    {
+      "level": "PASS",
+      "id": "steps",
+      "msg": "360 ticks logged, expected 360",
+      "value": null
+    },
+    {
+      "level": "PASS",
+      "id": "tick",
+      "msg": "engine tick spacing 0.0500-0.0500 s",
+      "value": null
+    },
+    {
+      "level": "PASS",
+      "id": "clock_sync",
+      "msg": "plant clock vs engine clock: constant offset +0.000 s, drift/jitter max 0.0 ms; meta max_time_skew 1.2079226507921703e-13",
+      "value": 0.0
+    },
+    {
+      "level": "PASS",
+      "id": "finite",
+      "msg": "all logged values finite",
+      "value": null
+    },
+    {
+      "level": "PASS",
+      "id": "moved_0",
+      "msg": "leader net displacement 13.81 m",
+      "value": 13.814561118051627
+    },
+    {
+      "level": "PASS",
+      "id": "moved_1",
+      "msg": "follower 1 net displacement 13.38 m",
+      "value": 13.378183712374563
+    },
+    {
+      "level": "PASS",
+      "id": "moved_2",
+      "msg": "follower 2 net displacement 14.16 m",
+      "value": 14.161551703892204
+    },
+    {
+      "level": "PASS",
+      "id": "moved_3",
+      "msg": "follower 3 net displacement 12.62 m",
+      "value": 12.624457918441571
+    },
+    {
+      "level": "PASS",
+      "id": "moved_4",
+      "msg": "follower 4 net displacement 14.39 m",
+      "value": 14.394343025136907
+    },
+    {
+      "level": "PASS",
+      "id": "teleport",
+      "msg": "largest one-tick jump 0.063 m (follower 4 at t=10.10 s); physical max ~0.062 m",
+      "value": 0.06288546290831422
+    },
+    {
+      "level": "PASS",
+      "id": "leader_tracking_ratio",
+      "msg": "leader mean measured speed / commanded speed = 1.000",
+      "value": 1.0000012572932526
+    },
+    {
+      "level": "PASS",
+      "id": "cmd_to_motion_1",
+      "msg": "follower 1 corr(commanded v, measured v two ticks later) = 0.43",
+      "value": 0.4276214462563575
+    },
+    {
+      "level": "PASS",
+      "id": "cmd_to_motion_2",
+      "msg": "follower 2 corr(commanded v, measured v two ticks later) = 0.48",
+      "value": 0.477676064550624
+    },
+    {
+      "level": "PASS",
+      "id": "cmd_to_motion_3",
+      "msg": "follower 3 corr(commanded v, measured v two ticks later) = 0.50",
+      "value": 0.5008141703196303
+    },
+    {
+      "level": "PASS",
+      "id": "cmd_to_motion_4",
+      "msg": "follower 4 corr(commanded v, measured v two ticks later) = 0.51",
+      "value": 0.5142929510770242
+    },
+    {
+      "level": "PASS",
+      "id": "saturation",
+      "msg": "0 wheel-saturation samples",
+      "value": null
+    },
+    {
+      "level": "WARN",
+      "id": "command_chatter",
+      "msg": "mean |dv| per tick 0.57 m/s, |dw| 1.59 rad/s (stand-in runs were ~0.58 / 1.85)",
+      "value": 0.5709716215161805
+    },
+    {
+      "level": "PASS",
+      "id": "tilt",
+      "msg": "max |roll|,|pitch| = 0.9 deg (0 expected on flat floor)",
+      "value": 0.8639864993947676
+    },
+    {
+      "level": "PASS",
+      "id": "height",
+      "msg": "max |z - 0.0975| = 0.8 mm (axle height; larger = sinking/lifting/tipping)",
+      "value": 0.0007983071729505825
+    },
+    {
+      "level": "WARN",
+      "id": "leader_vs_reference",
+      "msg": "leader deviates from the native-simulator reference path by max 0.68 m, final 0.68 m",
+      "value": 0.6755811820041803
+    },
+    {
+      "level": "INFO",
+      "id": "formation",
+      "msg": "formation RMS: overall 0.156 m, peak 0.497 m, last 2 s 0.067 m, min separation 1.31 m",
+      "value": null
+    },
+    {
+      "level": "PASS",
+      "id": "blackout_effective",
+      "msg": "0 accepted deliveries during the blackout (0 expected)",
+      "value": 0
+    },
+    {
+      "level": "PASS",
+      "id": "restoration",
+      "msg": "deliveries resume at t=8.05 s",
+      "value": null
+    },
+    {
+      "level": "INFO",
+      "id": "supervisor_states",
+      "msg": "states reached: ['NORMAL', 'DEGRADED', 'HOLD', 'RECOVERING']; 16 transitions",
+      "value": null
+    }
+  ]
+}

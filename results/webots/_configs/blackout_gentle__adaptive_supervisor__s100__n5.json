@@ -1,0 +1,15 @@
+{
+  "scenario": "blackout_gentle",
+  "arm": "adaptive_supervisor",
+  "seed": 100,
+  "duration_s": 18.0,
+  "n_agents": 5,
+  "out_dir": "C:\\Users\\harih\\Downloads\\ResilientSync-stage7-webots\\ResilientSync\\results\\webots",
+  "teleport_initial": true,
+  "quit_when_done": false,
+  "frame": [
+    0,
+    0,
+    0
+  ]
+}

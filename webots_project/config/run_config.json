@@ -1,0 +1,11 @@
+{
+  "scenario": "blackout_gentle",
+  "arm": "adaptive_supervisor",
+  "seed": 100,
+  "duration_s": 18.0,
+  "n_agents": "auto",
+  "out_dir": "results/webots",
+  "teleport_initial": true,
+  "quit_when_done": true,
+  "frame": [0.0, 0.0, 0.0]
+}

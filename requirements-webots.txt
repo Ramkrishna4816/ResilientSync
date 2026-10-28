@@ -1,0 +1,8 @@
+# Minimal environment for the Webots coordinator + offline analysis + tests.
+# Deliberately EXCLUDES the web-dashboard stack (fastapi, uvicorn, jinja2, httpx) so that a failure
+# installing those can never leave the Webots controller without numpy.
+numpy>=1.24
+scipy>=1.10
+pandas>=2.0
+matplotlib>=3.7
+pytest>=7

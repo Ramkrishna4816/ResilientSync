@@ -1,0 +1,42 @@
+[
+  {
+    "t": 3.8,
+    "from": "NORMAL",
+    "to": "DEGRADED",
+    "reason": "Entered DEGRADED because communication quality 0.31 fell below the configured threshold 0.35.",
+    "quality": 0.308,
+    "age": 0.5,
+    "kind": "transition",
+    "follower": 4
+  },
+  {
+    "t": 7.6,
+    "from": "DEGRADED",
+    "to": "NORMAL",
+    "reason": "Returned to NORMAL because communication quality 0.56 stayed at or above 0.50 for the required dwell time.",
+    "quality": 0.564,
+    "age": 0.05,
+    "kind": "transition",
+    "follower": 4
+  },
+  {
+    "t": 10.25,
+    "from": "NORMAL",
+    "to": "DEGRADED",
+    "reason": "Entered DEGRADED because communication quality 0.30 fell below the configured threshold 0.35.",
+    "quality": 0.303,
+    "age": 0.75,
+    "kind": "transition",
+    "follower": 2
+  },
+  {
+    "t": 12.8,
+    "from": "DEGRADED",
+    "to": "NORMAL",
+    "reason": "Returned to NORMAL because communication quality 0.62 stayed at or above 0.50 for the required dwell time.",
+    "quality": 0.618,
+    "age": 0.1,
+    "kind": "transition",
+    "follower": 2
+  }
+]

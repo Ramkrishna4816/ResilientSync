@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title }}</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <h1>ResilientSync <span class="muted">multi-agent formation &middot; communication resilience</span></h1>
+  <div class="chips">
+    <span class="chip" id="chip-view">LIVE</span>
+    <span class="chip" id="chip-time">t = 0.0 s</span>
+    <span class="chip" id="chip-ctrl">-</span>
+    <span class="chip" id="chip-sup">supervisor -</span>
+    <span class="chip" id="chip-net">network -</span>
+    <span class="chip" id="chip-conn" data-state="down">connecting...</span>
+  </div>
+  <div class="sim-controls" id="live-controls">
+    <button id="btn-pause" title="Pause / resume the live simulation clock">Pause</button>
+    <label>Speed
+      <select id="sel-speed">
+        <option value="0.5">0.5&times;</option><option value="1" selected>1&times;</option>
+        <option value="2">2&times;</option><option value="4">4&times;</option>
+      </select>
+    </label>
+    <button id="btn-reset" title="Restart the live simulation with the settings in the Experiment tab">Reset live</button>
+  </div>
+</header>
+
+<main class="workspace">
+
+  <!-- ===================== STAGE: viewport + analysis ===================== -->
+  <section class="stage">
+    <div class="stage-bar">
+      <div class="seg" role="tablist" aria-label="Data source">
+        <button id="tab-live" class="seg-btn active" role="tab">Live</button>
+        <button id="tab-replay" class="seg-btn" role="tab">Replay</button>
+      </div>
+      <div class="layers" id="layers" aria-label="Viewport layers">
+        <label><input type="checkbox" data-layer="trails" checked> trails</label>
+        <label><input type="checkbox" data-layer="links" checked> comm links</label>
+        <label><input type="checkbox" data-layer="slots" checked> slots</label>
+        <label><input type="checkbox" data-layer="skeleton" checked> formation</label>
+        <label><input type="checkbox" data-layer="target"> controller target</label>
+        <label><input type="checkbox" data-layer="errvec" checked> slot error</label>
+        <label><input type="checkbox" data-layer="markers" checked> event markers</label>
+        <label><input type="checkbox" data-layer="sep" checked> separation</label>
+        <label><input type="checkbox" data-layer="labels" checked> labels</label>
+        <label><input type="checkbox" id="chk-legend" checked> legend</label>
+        <label>trail <select id="sel-trail"><option value="5">5 s</option><option value="10" selected>10 s</option><option value="30">30 s</option><option value="1000">all</option></select></label>
+      </div>
+    </div>
+
+    <div class="canvas-wrap">
+      <canvas id="world" aria-label="Simulation arena"></canvas>
+      <div id="status-overlay" class="overlay status"></div>
+      <div id="legend" class="overlay legend"></div>
+      <div id="halt-banner" class="halt" hidden></div>
+    </div>
+
+    <div id="replay-bar" class="replay-bar" hidden>
+      <button id="rp-play" title="Play / pause replay">Play</button>
+      <button id="rp-back" title="Step back one recorded frame">&#9664;</button>
+      <button id="rp-fwd" title="Step forward one recorded frame">&#9654;</button>
+      <input id="rp-slider" type="range" min="0" max="0" value="0" step="1" aria-label="Replay time">
+      <span id="rp-time" class="mono">t = 0.00 / 0.00 s</span>
+      <label>speed <select id="rp-speed"><option>0.25</option><option>0.5</option><option selected>1</option><option>2</option><option>4</option></select></label>
+      <button id="rp-maxerr" title="Seek to the peak formation error">Peak error</button>
+      <button id="rp-minsep" title="Seek to the minimum separation">Min separation</button>
+    </div>
+    <div id="feedback" class="feedback" role="status"></div>
+
+    <section class="analysis" id="analysis" aria-label="Synchronised analysis plots">
+      <div class="analysis-head">
+        <h2>Analysis <span class="muted small" id="analysis-sub">live rolling window</span></h2>
+        <label class="small">window <select id="sel-window"><option value="30">30 s</option><option value="60" selected>60 s</option><option value="120">120 s</option></select></label>
+        <span class="small muted">shaded bands = injected fault intervals &middot; in Replay, click or drag on any plot to seek</span>
+      </div>
+      <canvas class="plot" id="pl-err" height="120" data-h="120"></canvas>
+      <canvas class="plot" id="pl-sep" height="100" data-h="100"></canvas>
+      <canvas class="plot" id="pl-q" height="100" data-h="100"></canvas>
+      <canvas class="plot" id="pl-age" height="100" data-h="100"></canvas>
+      <canvas class="plot" id="pl-sup" height="86" data-h="86"></canvas>
+      <canvas class="plot" id="pl-net" height="100" data-h="100"></canvas>
+      <canvas class="plot" id="pl-cons" height="100" data-h="100"></canvas>
+    </section>
+  </section>
+
+  <!-- ===================== SIDE: tabbed panels ===================== -->
+  <aside class="side">
+    <nav class="tabs" id="side-tabs" role="tablist">
+      <button data-pane="experiment" class="active" role="tab">Experiment</button>
+      <button data-pane="replay" role="tab">Replay</button>
+      <button data-pane="inspect" role="tab">Inspector</button>
+      <button data-pane="network" role="tab">Network</button>
+      <button data-pane="operator" role="tab">Operator</button>
+      <button data-pane="benchmark" role="tab">Benchmark</button>
+    </nav>
+
+    <!-- ---------- Experiment ---------- -->
+    <div class="pane" id="pane-experiment">
+      <section class="panel">
+        <h2>Experiment configuration</h2>
+        <form id="form-exp" class="grid-form" autocomplete="off">
+          <label>Controller
+            <select id="x-ctrl">
+              <option value="adaptive_comm" selected>adaptive_comm</option>
+              <option value="advanced">advanced</option><option value="pidr">pidr</option><option value="zoh">zoh</option>
+            </select></label>
+          <label title="Resilience supervisor (adaptive_comm only)">Supervisor
+            <select id="x-sup"><option value="true" selected>on</option><option value="false">off</option></select></label>
+          <label>Duration [s] <input id="x-dur" type="number" min="1" max="120" step="1" value="18"></label>
+          <label>Seed <input id="x-seed" type="number" min="0" step="1" value="42"></label>
+          <label>Agents <input id="x-n" type="number" min="2" max="12" step="1" value="5"></label>
+          <label>Formation
+            <select id="x-form"><option>WEDGE</option><option>LINE</option><option>COLUMN</option></select></label>
+          <label>Fault profile
+            <select id="x-prof">
+              <option value="none">none</option><option value="blackout" selected>blackout</option>
+              <option value="random_loss">random loss</option><option value="burst_loss">burst loss</option>
+              <option value="latency_jitter">latency + jitter</option><option value="blackout_latency">latency then blackout</option>
+            </select></label>
+          <label>Fault start [s] <input id="x-fstart" type="number" min="0" step="0.5" value="5"></label>
+          <label>Fault length [s] <input id="x-flen" type="number" min="0.05" step="0.5" value="3"></label>
+          <label>Loss probability <input id="x-fprob" type="number" min="0" max="1" step="0.05" value="0.3"></label>
+          <label>Latency [s] <input id="x-flat" type="number" min="0" max="5" step="0.05" value="0.3"></label>
+          <label>Jitter [s] <input id="x-fjit" type="number" min="0" max="5" step="0.05" value="0.15"></label>
+          <label>Background loss &times; <input id="x-loss" type="number" min="0" max="10" step="0.5" value="1"></label>
+        </form>
+        <div class="btn-row">
+          <button id="x-apply" title="Reset the LIVE simulation with these settings">Apply to live</button>
+          <button id="x-run" class="primary" title="Run headless with these settings, save a recording and open it in Replay">Run &amp; record</button>
+          <button id="x-save" title="Validate on the server and download this configuration as JSON">Save config</button>
+          <button id="x-load" title="Load a saved configuration JSON">Load config</button>
+          <input id="x-file" type="file" accept="application/json,.json" hidden>
+        </div>
+        <p class="small muted">Apply to live restarts the real-time simulation. Run &amp; record runs the same engine headless
+          (not in real time), stores a versioned JSON recording and opens it in Replay.
+          Same seed + configuration &rarr; same run on the same code version.</p>
+      </section>
+      <section class="panel">
+        <h2>Live fault injection <span class="muted small">(seeded, relative to now)</span></h2>
+        <form id="form-fault" class="inline wrap">
+          <select id="f-profile">
+            <option value="blackout">blackout</option><option value="random_loss">random loss</option>
+            <option value="burst_loss">burst loss</option><option value="latency_jitter">latency + jitter</option>
+            <option value="blackout_latency">latency then blackout</option>
+          </select>
+          <label>in <input id="f-start" type="number" min="0" step="0.5" value="2"> s</label>
+          <label>for <input id="f-dur" type="number" min="0.5" step="0.5" value="3"> s</label>
+          <label>p <input id="f-prob" type="number" min="0" max="1" step="0.05" value="0.3"></label>
+          <button type="submit">Schedule</button>
+          <button type="button" id="btn-fault-clear">Clear</button>
+        </form>
+        <div id="res-fault" class="small muted pre"></div>
+        <label class="small"><input id="chk-loss" type="checkbox"> force 100 % packet loss (manual blackout)</label>
+      </section>
+    </div>
+
+    <!-- ---------- Replay ---------- -->
+    <div class="pane" id="pane-replay" hidden>
+      <section class="panel">
+        <h2>Recordings</h2>
+        <div class="btn-row">
+          <select id="rp-list" aria-label="Saved recordings"></select>
+          <button id="rp-load" class="primary">Load</button>
+          <button id="rp-refresh" title="Refresh list">&#8635;</button>
+        </div>
+        <div class="btn-row">
+          <button id="rp-download" title="Download the loaded recording as JSON">Download</button>
+          <button id="rp-upload" title="Upload a recording JSON">Upload</button>
+          <input id="rp-file" type="file" accept="application/json,.json" hidden>
+          <button id="rp-rerun" title="Re-simulate the saved seed + configuration and compare with the saved timeline">Rerun &amp; compare</button>
+        </div>
+        <div id="rp-meta" class="small muted pre">No recording loaded.</div>
+        <div id="rp-rerun-out" class="small pre"></div>
+      </section>
+      <section class="panel">
+        <h2>Investigation summary</h2>
+        <div id="rp-summary" class="small">Load a recording to generate a summary from its saved data.</div>
+      </section>
+      <section class="panel">
+        <h2>Recovery milestones <span class="muted small">(four different events)</span></h2>
+        <div id="rp-milestones" class="small muted">Available when a recording has a finite fault window.</div>
+      </section>
+    </div>
+
+    <!-- ---------- Inspector (supervisor + agents at the cursor) ---------- -->
+    <div class="pane" id="pane-inspect" hidden>
+      <section class="panel">
+        <h2>Resilience supervisor <span class="muted small" id="insp-time"></span></h2>
+        <div id="res-off" class="muted small" hidden>The supervisor drives only the <b>adaptive_comm</b> controller (with supervisor on).</div>
+        <div id="res-body">
+          <div class="res-head"><span id="res-state" class="state-pill st-NORMAL">NORMAL</span>
+            <span id="res-explain" class="small"></span></div>
+          <div id="res-stats" class="stats"></div>
+          <h3>Time in state (mean over followers)</h3>
+          <div id="res-time" class="stats"></div>
+          <h3>Transition history <span class="muted">(click to seek in replay)</span></h3>
+          <div id="res-trans" class="events"></div>
+        </div>
+        <p class="small muted">HOLD is a bounded fallback, not a safety guarantee: a follower only knows its own message age,
+          not the network state or other robots' intentions.</p>
+      </section>
+      <section class="panel">
+        <h2>Agents</h2>
+        <table id="tbl-agents">
+          <thead><tr><th>ID</th><th>Mode</th><th>x [m]</th><th>y [m]</th><th>&theta; [deg]</th><th>v [m/s]</th><th>age [s]</th><th>qual.</th><th>err [m]</th><th>sup.</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </section>
+    </div>
+
+    <!-- ---------- Network ---------- -->
+    <div class="pane" id="pane-network" hidden>
+      <section class="panel">
+        <h2>Connectivity <span class="muted small">(global diagnostic &mdash; not known to followers)</span></h2>
+        <div id="net-conn" class="stats"></div>
+        <h3>Interruptions (a follower with no leader link)</h3>
+        <div id="net-iv" class="small pre"></div>
+        <p class="small muted">Graph = leader&rarr;follower pose links that delivered a packet within the timeout. Components and
+          algebraic connectivity (&lambda;&#8322;) are computed on it as an undirected graph. Connectivity, consensus and formation tracking are separate quantities.</p>
+      </section>
+      <section class="panel">
+        <h2>Consensus <span class="muted small">(heading &amp; speed disagreement)</span></h2>
+        <div id="net-cons" class="stats"></div>
+      </section>
+      <section class="panel">
+        <h2>Link statistics</h2>
+        <div id="net-stats" class="stats"></div>
+      </section>
+      <section class="panel">
+        <h2>Communication log <span class="muted small">(real network events, live only)</span></h2>
+        <pre id="comm-log" class="log"></pre>
+      </section>
+    </div>
+
+    <!-- ---------- Operator ---------- -->
+    <div class="pane" id="pane-operator" hidden>
+      <section class="panel">
+        <h2>Mission</h2>
+        <div class="btn-row">
+          <label>Target <select id="sel-agent"><option value="ALL" selected>ALL</option><option value="LEADER">LEADER</option></select></label>
+          <button data-cmd="follow">FOLLOW</button><button data-cmd="scatter">SCATTER</button>
+          <button data-cmd="regroup">REGROUP</button>
+          <button data-cmd="stop" class="danger">STOP</button><button data-cmd="resume">RESUME</button>
+        </div>
+        <div class="btn-row">
+          <label>Mode <select id="sel-simmode"><option>AUTO</option><option>MANUAL</option><option>COMMAND</option></select></label>
+          <label>Formation <select id="sel-formation"><option value="">-</option><option>WEDGE</option><option>LINE</option><option>COLUMN</option></select></label>
+        </div>
+        <form id="form-goto" class="inline"><strong>GOTO</strong>
+          <input id="goto-x" type="number" step="any" placeholder="x" required>
+          <input id="goto-y" type="number" step="any" placeholder="y" required><button type="submit">Go</button></form>
+        <form id="form-cmd" class="inline grow">
+          <input id="cmd-text" type="text" placeholder="GOTO 10 5 | AGENT 2 STOP | STATUS" autocomplete="off" spellcheck="false">
+          <button type="submit">Send</button></form>
+        <div class="small muted">Keys (live): <span id="keys"><kbd data-k="W">W</kbd><kbd data-k="A">A</kbd><kbd data-k="S">S</kbd><kbd data-k="D">D</kbd> drive &middot;
+          <kbd>SPACE</kbd> stop &middot; <kbd>R</kbd> regroup &middot; <kbd>X</kbd> scatter &middot; <kbd>F</kbd> follow</span>
+          <span id="manual-cmd" class="mono"></span><br>Click the arena (live) to send the selected agent there.</div>
+      </section>
+      <section class="panel">
+        <h2>Tasks</h2>
+        <form id="form-task" class="inline wrap">
+          <input id="task-id" type="text" placeholder="id" maxlength="8" required style="width:3.6em">
+          <input id="task-x" type="number" step="any" placeholder="x" required>
+          <input id="task-y" type="number" step="any" placeholder="y" required>
+          <input id="task-prio" type="number" min="1" step="1" value="1" title="priority (1 = most urgent)" style="width:3.4em">
+          <button type="submit">Add</button><button type="button" id="btn-allocate">Allocate</button>
+          <button type="button" id="btn-cleartasks">Clear</button></form>
+        <ul id="task-list" class="plain"></ul>
+      </section>
+      <section class="panel"><h2>Command history</h2><pre id="cmd-history" class="log"></pre></section>
+      <section class="panel"><h2>Events</h2><pre id="status-log" class="log small"></pre></section>
+    </div>
+
+    <!-- ---------- Benchmark ---------- -->
+    <div class="pane" id="pane-benchmark" hidden>
+      <section class="panel">
+        <h2>Measured benchmark <span class="muted small" id="bench-tag"></span></h2>
+        <div id="bench-body" class="small muted">loading...</div>
+      </section>
+    </div>
+  </aside>
+</main>
+
+<script src="/static/js/core.js"></script>
+<script src="/static/js/viewport.js"></script>
+<script src="/static/js/plots.js"></script>
+<script src="/static/app.js"></script>
+</body>
+</html>

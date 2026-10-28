@@ -1,0 +1,214 @@
+#VRML_SIM R2023b utf8
+# RSDiffDrive -- differential-drive robot for the ResilientSync validation.
+# Reference point (origin) = midpoint of the axle, at wheel-radius height (z-up / ENU world).
+# Numbers here MUST equal resilientsync_webots/robot_params.py (checked by tests/test_webots_assets.py):
+#   wheel radius 0.0975 m, track (wheel-centre distance) 0.33 m, motor maxVelocity 20 rad/s.
+# Heading = +x of the robot frame; left wheel at +y.  Positive wheel velocity drives forward.
+# Casters are NOT separate Solids: Webots only uses the top-level boundingObject of a physics body
+# (a child Solid without 'physics' triggers "collisions will have no effect"). The two caster spheres
+# are therefore part of the robot's boundingObject Group, with frictionless contactMaterial "rs_caster".
+# STATUS: loaded by the user in Webots R2025a (opens, controllers start); motion/physics not yet verified.
+PROTO RSDiffDrive [
+  field SFVec3f    translation    0 0 0.0975
+  field SFRotation rotation       0 0 1 0
+  field SFString   name           "robot"
+  field MFString   controllerArgs []
+  field SFColor    bodyColor      0.2 0.45 0.85
+]
+{
+  Robot {
+    translation IS translation
+    rotation IS rotation
+    name IS name
+    controller "rs_wheel_driver"
+    controllerArgs IS controllerArgs
+    children [
+      Receiver {
+        name "cmd_rx"
+        channel 1
+      }
+      Transform {
+        translation 0 0 0.02
+        children [
+          Shape {
+            appearance PBRAppearance {
+              baseColor IS bodyColor
+              roughness 1
+              metalness 0
+            }
+            geometry Box {
+              size 0.4 0.26 0.1
+            }
+          }
+        ]
+      }
+      Transform {
+        translation 0.17 0 0.075
+        children [
+          Shape {
+            appearance PBRAppearance {
+              baseColor 0.9 0.1 0.1
+              roughness 1
+              metalness 0
+            }
+            geometry Box {
+              size 0.06 0.06 0.02
+            }
+          }
+        ]
+      }
+      Transform {
+        translation 0.15 0 -0.069
+        children [
+          Shape {
+            appearance PBRAppearance {
+              baseColor 0.3 0.3 0.3
+              roughness 1
+              metalness 0
+            }
+            geometry Sphere {
+              radius 0.0285
+              subdivision 2
+            }
+          }
+        ]
+      }
+      Transform {
+        translation -0.15 0 -0.069
+        children [
+          Shape {
+            appearance PBRAppearance {
+              baseColor 0.3 0.3 0.3
+              roughness 1
+              metalness 0
+            }
+            geometry Sphere {
+              radius 0.0285
+              subdivision 2
+            }
+          }
+        ]
+      }
+      HingeJoint {
+        jointParameters HingeJointParameters {
+          axis 0 1 0
+          anchor 0 0.165 0
+        }
+        device [
+          RotationalMotor {
+            name "left wheel motor"
+            maxVelocity 20
+          }
+          PositionSensor {
+            name "left wheel sensor"
+          }
+        ]
+        endPoint Solid {
+          translation 0 0.165 0
+          rotation 1 0 0 1.5708
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.1 0.1 0.1
+                roughness 1
+                metalness 0
+              }
+              geometry Cylinder {
+                height 0.04
+                radius 0.0975
+              }
+            }
+          ]
+          name "left wheel"
+          boundingObject Cylinder {
+            height 0.04
+            radius 0.0975
+          }
+          physics Physics {
+            density -1
+            mass 0.6
+          }
+        }
+      }
+      HingeJoint {
+        jointParameters HingeJointParameters {
+          axis 0 1 0
+          anchor 0 -0.165 0
+        }
+        device [
+          RotationalMotor {
+            name "right wheel motor"
+            maxVelocity 20
+          }
+          PositionSensor {
+            name "right wheel sensor"
+          }
+        ]
+        endPoint Solid {
+          translation 0 -0.165 0
+          rotation 1 0 0 1.5708
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.1 0.1 0.1
+                roughness 1
+                metalness 0
+              }
+              geometry Cylinder {
+                height 0.04
+                radius 0.0975
+              }
+            }
+          ]
+          name "right wheel"
+          boundingObject Cylinder {
+            height 0.04
+            radius 0.0975
+          }
+          physics Physics {
+            density -1
+            mass 0.6
+          }
+        }
+      }
+    ]
+    contactMaterial "rs_caster"
+    boundingObject Group {
+      children [
+        Transform {
+          translation 0 0 0.02
+          children [
+            Box {
+              size 0.4 0.26 0.1
+            }
+          ]
+        }
+        Transform {
+          translation 0.15 0 -0.069
+          children [
+            Sphere {
+              radius 0.0285
+              subdivision 2
+            }
+          ]
+        }
+        Transform {
+          translation -0.15 0 -0.069
+          children [
+            Sphere {
+              radius 0.0285
+              subdivision 2
+            }
+          ]
+        }
+      ]
+    }
+    physics Physics {
+      density -1
+      mass 8
+      centerOfMass [
+        0 0 0
+      ]
+    }
+  }
+}

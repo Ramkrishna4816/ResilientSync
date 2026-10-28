@@ -1,0 +1,37 @@
+{
+  "profile": {
+    "name": "latency_jitter",
+    "description": "+0.4 s latency with +-0.2 s jitter, t=4-12 s",
+    "events": [
+      {
+        "kind": "latency",
+        "label": "latency_jitter",
+        "start": 4.0,
+        "end": 12.0,
+        "extra_latency_s": 0.4,
+        "jitter_s": 0.2
+      }
+    ]
+  },
+  "edges": [
+    {
+      "t": 4.0,
+      "event": "latency_jitter",
+      "kind": "latency",
+      "action": "start",
+      "profile": "latency_jitter"
+    },
+    {
+      "t": 12.0,
+      "event": "latency_jitter",
+      "kind": "latency",
+      "action": "end",
+      "profile": "latency_jitter"
+    }
+  ],
+  "counts": {
+    "dropped_by_fault": 0,
+    "delayed_by_fault": 632,
+    "extra_latency_sum": 249.617367277679
+  }
+}

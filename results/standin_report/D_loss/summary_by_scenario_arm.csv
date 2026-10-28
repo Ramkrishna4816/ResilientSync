@@ -1,0 +1,4 @@
+scenario,arm,runs,completed,RMSE_mean,RMSE_sd,Peak_mean,MinSep_min,collision_runs,saturated_samples,pose_loss_pct,max_age_s,recovered,recovery_applicable,recovery_time_mean,time_to_all_normal_s
+burst_loss,adaptive_supervisor,1,1,1.6372510411497092,,2.42227509145378,1.1325847910326827,0,0,26.805555555555557,1.3000000000000185,0,1,,2.75
+latency_jitter,adaptive_supervisor,1,1,1.6410611938599495,,2.4286381480719488,1.1296417397015164,0,0,8.055555555555555,1.050000000000015,0,1,,2.75
+random_loss_30,adaptive_supervisor,1,1,1.6291637588156864,,2.4159046146856893,1.1281940798180392,0,0,20.833333333333332,0.6500000000000092,0,1,,2.75

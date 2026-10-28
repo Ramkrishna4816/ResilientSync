@@ -1,0 +1,3 @@
+burst_loss: ['DEGRADED', 'HOLD', 'NORMAL', 'RECOVERING']
+latency_jitter: ['DEGRADED', 'NORMAL']
+random_loss_30: ['DEGRADED', 'NORMAL']

@@ -1,0 +1,13 @@
+{
+  "profile": {
+    "name": "nominal",
+    "description": "no injected fault (default channel only)",
+    "events": []
+  },
+  "edges": [],
+  "counts": {
+    "dropped_by_fault": 0,
+    "delayed_by_fault": 0,
+    "extra_latency_sum": 0.0
+  }
+}

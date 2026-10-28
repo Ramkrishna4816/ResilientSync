@@ -1,0 +1,36 @@
+{
+  "profile": {
+    "name": "random_loss_30",
+    "description": "independent 30 % extra packet loss, t=4-12 s",
+    "events": [
+      {
+        "kind": "random_loss",
+        "label": "random_loss",
+        "start": 4.0,
+        "end": 12.0,
+        "probability": 0.3
+      }
+    ]
+  },
+  "edges": [
+    {
+      "t": 4.0,
+      "event": "random_loss",
+      "kind": "random_loss",
+      "action": "start",
+      "profile": "random_loss_30"
+    },
+    {
+      "t": 12.0,
+      "event": "random_loss",
+      "kind": "random_loss",
+      "action": "end",
+      "profile": "random_loss_30"
+    }
+  ],
+  "counts": {
+    "dropped_by_fault": 223,
+    "delayed_by_fault": 0,
+    "extra_latency_sum": 0.0
+  }
+}

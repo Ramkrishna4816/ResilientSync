@@ -1,0 +1,126 @@
+{
+  "_comment": "Fault-injection configuration. Same FaultEvent semantics as simulation/network.py. Times are simulation seconds. Edit and re-run tests/test_webots_faults.py.",
+  "default_duration_s": 18.0,
+  "scenarios": {
+    "nominal": {
+      "description": "no injected fault (default channel only)",
+      "trajectory": "default",
+      "events": []
+    },
+    "blackout_3s": {
+      "description": "3 s total blackout at t=5 s (the original benchmark)",
+      "trajectory": "default",
+      "events": [
+        {
+          "kind": "blackout",
+          "start": 5.0,
+          "duration": 3.0,
+          "label": "blackout"
+        }
+      ]
+    },
+    "blackout_6s": {
+      "description": "6 s total blackout at t=4 s",
+      "trajectory": "default",
+      "events": [
+        {
+          "kind": "blackout",
+          "start": 4.0,
+          "duration": 6.0,
+          "label": "blackout"
+        }
+      ]
+    },
+    "blackout_maneuver": {
+      "description": "3 s blackout at t=5 s while the leader stops and turns abruptly",
+      "trajectory": "maneuver",
+      "events": [
+        {
+          "kind": "blackout",
+          "start": 5.0,
+          "duration": 3.0,
+          "label": "blackout"
+        }
+      ]
+    },
+    "random_loss_30": {
+      "description": "independent 30 % extra packet loss, t=4-12 s",
+      "trajectory": "default",
+      "events": [
+        {
+          "kind": "random_loss",
+          "start": 4.0,
+          "duration": 8.0,
+          "label": "random_loss",
+          "probability": 0.3
+        }
+      ]
+    },
+    "burst_loss": {
+      "description": "correlated burst loss (mean ~50 %, mean burst ~6.7 packets), t=4-12 s",
+      "trajectory": "default",
+      "events": [
+        {
+          "kind": "burst_loss",
+          "start": 4.0,
+          "duration": 8.0,
+          "label": "burst_loss",
+          "p_good_to_bad": 0.15,
+          "p_bad_to_good": 0.15,
+          "loss_in_bad": 1.0
+        }
+      ]
+    },
+    "latency_jitter": {
+      "description": "+0.4 s latency with +-0.2 s jitter, t=4-12 s",
+      "trajectory": "default",
+      "events": [
+        {
+          "kind": "latency",
+          "start": 4.0,
+          "duration": 8.0,
+          "label": "latency_jitter",
+          "extra_latency_s": 0.4,
+          "jitter_s": 0.2
+        }
+      ]
+    },
+    "latency_then_blackout": {
+      "description": "+0.3 s latency/jitter for 3 s then a 3 s blackout (t=3-9 s)",
+      "trajectory": "default",
+      "events": [
+        {
+          "kind": "latency",
+          "start": 3.0,
+          "duration": 3.0,
+          "label": "latency_jitter",
+          "extra_latency_s": 0.3,
+          "jitter_s": 0.15
+        },
+        {
+          "kind": "blackout",
+          "start": 6.0,
+          "duration": 3.0,
+          "label": "blackout"
+        }
+      ]
+    },
+    "nominal_gentle": {
+      "description": "no fault, low-curvature leader path (feasibility control)",
+      "trajectory": "gentle",
+      "events": []
+    },
+    "blackout_gentle": {
+      "description": "3 s blackout at t=5 s, low-curvature leader path (feasibility control)",
+      "trajectory": "gentle",
+      "events": [
+        {
+          "kind": "blackout",
+          "start": 5.0,
+          "duration": 3.0,
+          "label": "blackout"
+        }
+      ]
+    }
+  }
+}

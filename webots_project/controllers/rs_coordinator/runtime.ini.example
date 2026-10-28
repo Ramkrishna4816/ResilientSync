@@ -1,0 +1,4 @@
+# Copy to runtime.ini (same folder) to make Webots use your virtual environment for THIS controller.
+# Use the python.exe of the venv in which `pip install -r requirements.txt` was run.
+[python]
+COMMAND = C:\path\to\ResilientSync\.venv\Scripts\python.exe

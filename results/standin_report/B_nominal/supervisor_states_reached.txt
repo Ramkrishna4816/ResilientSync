@@ -1,0 +1,2 @@
+nominal: ['DEGRADED', 'NORMAL']
+nominal_gentle: ['DEGRADED', 'NORMAL']

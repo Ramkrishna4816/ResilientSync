@@ -1,0 +1,38 @@
+{
+  "profile": {
+    "name": "burst_loss",
+    "description": "correlated burst loss (mean ~50 %, mean burst ~6.7 packets), t=4-12 s",
+    "events": [
+      {
+        "kind": "burst_loss",
+        "label": "burst_loss",
+        "start": 4.0,
+        "end": 12.0,
+        "p_good_to_bad": 0.15,
+        "p_bad_to_good": 0.15,
+        "loss_in_bad": 1.0
+      }
+    ]
+  },
+  "edges": [
+    {
+      "t": 4.0,
+      "event": "burst_loss",
+      "kind": "burst_loss",
+      "action": "start",
+      "profile": "burst_loss"
+    },
+    {
+      "t": 12.0,
+      "event": "burst_loss",
+      "kind": "burst_loss",
+      "action": "end",
+      "profile": "burst_loss"
+    }
+  ],
+  "counts": {
+    "dropped_by_fault": 339,
+    "delayed_by_fault": 0,
+    "extra_latency_sum": 0.0
+  }
+}

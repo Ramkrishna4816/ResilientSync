@@ -1,0 +1,162 @@
+[
+  {
+    "t": 4.2,
+    "from": "NORMAL",
+    "to": "DEGRADED",
+    "reason": "Entered DEGRADED because communication quality 0.30 fell below the configured threshold 0.35.",
+    "quality": 0.303,
+    "age": 0.4,
+    "kind": "transition",
+    "follower": 3
+  },
+  {
+    "t": 5.5,
+    "from": "NORMAL",
+    "to": "DEGRADED",
+    "reason": "Entered DEGRADED because communication quality 0.30 fell below the configured threshold 0.35.",
+    "quality": 0.302,
+    "age": 0.55,
+    "kind": "transition",
+    "follower": 1
+  },
+  {
+    "t": 5.5,
+    "from": "NORMAL",
+    "to": "DEGRADED",
+    "reason": "Entered DEGRADED because communication quality 0.30 fell below the configured threshold 0.35.",
+    "quality": 0.302,
+    "age": 0.55,
+    "kind": "transition",
+    "follower": 4
+  },
+  {
+    "t": 5.55,
+    "from": "NORMAL",
+    "to": "DEGRADED",
+    "reason": "Entered DEGRADED because communication quality 0.31 fell below the configured threshold 0.35.",
+    "quality": 0.307,
+    "age": 0.6,
+    "kind": "transition",
+    "follower": 2
+  },
+  {
+    "t": 6.25,
+    "from": "DEGRADED",
+    "to": "HOLD",
+    "reason": "Entered HOLD because leader information age 1.30s exceeded the maximum permitted age 1.25s.",
+    "quality": 0.118,
+    "age": 1.3,
+    "kind": "transition",
+    "follower": 1
+  },
+  {
+    "t": 6.25,
+    "from": "DEGRADED",
+    "to": "HOLD",
+    "reason": "Entered HOLD because leader information age 1.30s exceeded the maximum permitted age 1.25s.",
+    "quality": 0.128,
+    "age": 1.3,
+    "kind": "transition",
+    "follower": 2
+  },
+  {
+    "t": 6.25,
+    "from": "DEGRADED",
+    "to": "HOLD",
+    "reason": "Entered HOLD because leader information age 1.30s exceeded the maximum permitted age 1.25s.",
+    "quality": 0.103,
+    "age": 1.3,
+    "kind": "transition",
+    "follower": 3
+  },
+  {
+    "t": 6.25,
+    "from": "DEGRADED",
+    "to": "HOLD",
+    "reason": "Entered HOLD because leader information age 1.30s exceeded the maximum permitted age 1.25s.",
+    "quality": 0.118,
+    "age": 1.3,
+    "kind": "transition",
+    "follower": 4
+  },
+  {
+    "t": 8.35,
+    "from": "HOLD",
+    "to": "RECOVERING",
+    "reason": "Entered RECOVERING after leader messages stayed fresh (age 0.10s <= 0.50s) for the required dwell time.",
+    "quality": 0.132,
+    "age": 0.1,
+    "kind": "transition",
+    "follower": 3
+  },
+  {
+    "t": 8.4,
+    "from": "HOLD",
+    "to": "RECOVERING",
+    "reason": "Entered RECOVERING after leader messages stayed fresh (age 0.10s <= 0.50s) for the required dwell time.",
+    "quality": 0.11,
+    "age": 0.1,
+    "kind": "transition",
+    "follower": 1
+  },
+  {
+    "t": 8.4,
+    "from": "HOLD",
+    "to": "RECOVERING",
+    "reason": "Entered RECOVERING after leader messages stayed fresh (age 0.15s <= 0.50s) for the required dwell time.",
+    "quality": 0.062,
+    "age": 0.15,
+    "kind": "transition",
+    "follower": 2
+  },
+  {
+    "t": 8.4,
+    "from": "HOLD",
+    "to": "RECOVERING",
+    "reason": "Entered RECOVERING after leader messages stayed fresh (age 0.15s <= 0.50s) for the required dwell time.",
+    "quality": 0.104,
+    "age": 0.15,
+    "kind": "transition",
+    "follower": 4
+  },
+  {
+    "t": 9.85,
+    "from": "RECOVERING",
+    "to": "NORMAL",
+    "reason": "Returned to NORMAL after the recovery ramp completed and quality 0.61 reached 0.45.",
+    "quality": 0.611,
+    "age": 0.05,
+    "kind": "transition",
+    "follower": 3
+  },
+  {
+    "t": 9.9,
+    "from": "RECOVERING",
+    "to": "NORMAL",
+    "reason": "Returned to NORMAL after the recovery ramp completed and quality 0.57 reached 0.45.",
+    "quality": 0.574,
+    "age": 0.1,
+    "kind": "transition",
+    "follower": 1
+  },
+  {
+    "t": 9.9,
+    "from": "RECOVERING",
+    "to": "NORMAL",
+    "reason": "Returned to NORMAL after the recovery ramp completed and quality 0.63 reached 0.45.",
+    "quality": 0.634,
+    "age": 0.05,
+    "kind": "transition",
+    "follower": 2
+  },
+  {
+    "t": 10.8,
+    "from": "RECOVERING",
+    "to": "NORMAL",
+    "reason": "Returned to NORMAL after the recovery ramp completed and quality 0.47 reached 0.45.",
+    "quality": 0.47,
+    "age": 0.05,
+    "kind": "transition",
+    "follower": 4
+  }
+]
